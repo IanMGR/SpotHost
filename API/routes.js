@@ -1,8 +1,12 @@
 const app = require("express");
 
+const userController = require("./src/controller/userController");
 const horarioController = require("./src/controller/horarioController");
-const porcaoUnicaController = require("./src/controller/porcaoUnicaController.js");
+const porcaoUnicaController = require("./src/controller/porcaoUnicaController");
 const routes = app.Router();
+
+routes.get('/user',userController.index);
+routes.post('/login',userController.login);
 
 routes.get('/horario',horarioController.index);
 routes.post('/horario/add',horarioController.add);
