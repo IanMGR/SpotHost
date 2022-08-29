@@ -7,7 +7,7 @@ const app = express();
 global.connection = require("./src/database");
 
 app.use(express.json());
-app.use(routes);
+
 app.use(
   session({
       name: 'SESSION_ID',      // cookie name stored in the web browser
@@ -19,6 +19,8 @@ app.use(
       }
   })
 );
+
+app.use(routes);
 
 app.listen(3000, function(err) {
   if(err) {

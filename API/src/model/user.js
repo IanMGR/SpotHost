@@ -1,7 +1,8 @@
 class User {
-  constructor(horario){
+  constructor(user){
     this.id = user.id;
     this.name = user.name;
+    this.pswd = user.pswd;
     this.islogged = user.islogged;
     this.room = user.room;
     this.ishosting = user.ishosting;
@@ -33,14 +34,15 @@ exports.findById = function (id) {
   });
 };
 
-exports.login = function (param) {
+exports.login = function (user) {
   return new Promise(resolve => {
-    let sql = "SELECT * from test where id = 1";
+    let sql = "SELECT id from test where id = " + user.pswd;
     global.conn.query(sql, function (err, result) {
       if (err) {
         console.log(err);
       }
-      resolve (result);
+      resolve (result[0
+      ]);
     })
   });
 }

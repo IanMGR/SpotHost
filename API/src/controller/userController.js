@@ -6,20 +6,24 @@ module.exports = {
   },
 
   async login(req, res){
-    const  { param } = req.params;
-    const logged = await user.login();
-    return res.send(logged);
+    if (req.session.userId){
+      return res.json({result: 'ERROR', message: 'User already logged in.'});
+    }
+    const params = req.body;
+    const userInfo = await user.login(params);
+    if (userInfo){
+      req.session.userId = userInfo.id;
+      console.log("user " + req.session.userId + " logged in")
+    }
+    return res.send({result:'SUCCESS'});
   },
 
-  async read(req, res){
-    const status = await porcao.getStatus();
-    console.log(status);
-    return res.send(status);
-  },
+  async logout(req, res){
+    if (req.session.userId){
+      delete req.session.userId
+      return res.json({result:'SUCCESS'})
+    }
 
-  async update(req, res){
-    const  { param } = req.params;
-    const response = await porcao.update(param);
-    return res.send(response);
+    return res.json({result: 'ERROR', message: 'User is not logged in.'});
   }
 }

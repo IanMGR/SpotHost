@@ -6,7 +6,8 @@ const porcaoUnicaController = require("./src/controller/porcaoUnicaController");
 const routes = app.Router();
 
 routes.get('/user',userController.index);
-routes.post('/login',userController.login);
+routes.post('/user/login',userController.login);
+routes.get('/user/logout',userController.logout);
 
 routes.get('/horario',horarioController.index);
 routes.post('/horario/add',horarioController.add);
