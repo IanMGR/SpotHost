@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session")
+const globalvar = require("./src/global")
 const routes = require("./routes");
 
 const app = express();
@@ -11,7 +12,7 @@ app.use(express.json());
 app.use(
   session({
       name: 'SESSION_ID',      // cookie name stored in the web browser
-      secret: 'my_secret',     // helps to protect session
+      secret: global.session_secret,     // helps to protect session
       resave: true,
       saveUninitialized: true,
       cookie: {
