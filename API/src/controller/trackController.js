@@ -10,6 +10,11 @@ module.exports = {
     console.log(trackInfo)
     req.session.trackInfo = trackInfo;
     return res.json(trackInfo)
+  },
+
+  async playTrack(req, res){
+    response = await track.setTrack(req.session.spotifyToken, req.session.trackInfo);
+    return res.json(response)
   }
 
 }

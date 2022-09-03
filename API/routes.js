@@ -11,5 +11,6 @@ routes.get('/user/logout',userController.logout);
 routes.get('/user/callback',userController.callback);
 
 routes.get('/track/current',trackController.current);
+routes.get('/track/play',trackController.playTrack);
 
 module.exports = routes;

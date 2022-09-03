@@ -26,7 +26,6 @@ exports.getCurrent = function (token) {
       if (!err && res.statusCode === 200) {
         artists = []
         for (const artist of body.item.artists){
-          console.log(artist)
           artists.push(artist.name);
         }
         resolve({
@@ -39,6 +38,29 @@ exports.getCurrent = function (token) {
       }
       else {
         resolve({'error': err})
+      }
+    });
+  });
+},
+
+exports.setTrack = function (token, trackInfo) {
+  return new Promise(resolve => {
+    request.put('https://api.spotify.com/v1/me/player/play', { 
+      body: {
+        'uris': [trackInfo.uri],
+        'position_ms': trackInfo.progress_ms
+      },
+      auth: {
+        'bearer': token
+      },
+      json: true
+    }, 
+    function (err, res, body) {
+      if (err) {
+        resolve({'error': err})
+      }
+      else {
+        resolve({result:'SUCCESS'})
       }
     });
   });
