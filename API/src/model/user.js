@@ -27,7 +27,7 @@ exports.spotauthorize = function (res) {
   return new Promise(resolve => {
     redirect_uri = global.baseUrl + 'user/callback';
     state = randomstring.generate(16);
-    scope = 'user-read-private user-read-email';
+    scope = 'user-read-currently-playing user-modify-playback-state';
 
     res.redirect('https://accounts.spotify.com/authorize?' + new URLSearchParams({
       response_type: 'code',
@@ -43,7 +43,7 @@ exports.spotauthorize = function (res) {
   exports.getspottoken = function (code) {
     return new Promise(resolve => {
       redirect_uri = global.baseUrl + 'user/callback';
-      scope = 'user-read-private user-read-email';        
+      scope = 'user-read-currently-playing user-modify-playback-state';        
         
       request.post({
         url: 'https://accounts.spotify.com/api/token',
@@ -64,6 +64,29 @@ exports.spotauthorize = function (res) {
         }
         else {
           resolve({'error': err})
+        }
+      });
+    });
+  },
+
+  exports.getSpotifyId = function (token) {
+    return new Promise(resolve => { 
+
+      request.get({
+        url: 'https://api.spotify.com/v1/me',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        },
+        json: true
+      }, 
+      function (err, res, body) {
+        if (!err && res.statusCode === 200) {
+          console.log('logged in Spotify as: '+ body.id)
+          resolve(body.id)
+        }
+        else {
+          resolve(err)
         }
       });
     });

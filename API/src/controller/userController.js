@@ -15,8 +15,11 @@ module.exports = {
     }
     else {
       spotifyReponse = await user.getspottoken(code);
-    req.session.spotifyToken = spotifyReponse.access_token;
-    return res.json({result:'SUCCESS'});
+      req.session.spotifyToken = spotifyReponse.access_token;
+      spotifyId = await user.getSpotifyId(spotifyReponse.access_token);
+      req.session.spotifyId = spotifyId;
+      return res.json({result:'SUCCESS'});
+      //return res.json({token: spotifyReponse.access_token});
     }
   },
 
