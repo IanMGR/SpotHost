@@ -11,12 +11,15 @@
   "author": "Ian Raposo",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "randomstring": "^1.2.2",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "sessionstore": "^1.3.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.7",

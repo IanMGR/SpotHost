@@ -1,20 +1,41 @@
-const track = require("../model/track");
+const room = require("../model/room");
 
 module.exports = {
   async index(req, res){
-    return res.send('user controller');
+    return res.send('room controller');
   },
 
-  async current(req, res){
-    trackInfo = await track.getCurrent(req.session.spotifyToken);
-    console.log(trackInfo)
-    req.session.trackInfo = trackInfo;
-    return res.json(trackInfo)
+  async all(req, res){
+    const user_id = req.session.userId;
+    const response = await room.getHostRooms(user_id);
+    return res.send(response);
   },
 
-  async playTrack(req, res){
-    response = await track.setTrack(req.session.spotifyToken, req.session.trackInfo);
-    return res.json(response)
+  async add(req, res){
+    const info = req.body;
+    const user_id = req.session.userId;
+    const response = await room.create(info.dscr,user_id);
+    return res.send(response);
+  },
+  
+  async delete(req, res){
+    const { id } = req.params;
+    const user_id = req.session.userId;
+    const response = await room.remove(id,user_id);
+    return res.send(response);
+  },
+
+  async update(req, res){
+    const info = req.body;
+    const user_id = req.session.userId;
+    const response = await room.update(info,user_id);
+    return res.send(response);
+  },
+
+  async validate(req, res){
+    const { code } = req.params;
+    const response = await room.validation(code);
+    return res.send(response);
   }
 
 }

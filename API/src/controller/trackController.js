@@ -6,6 +6,7 @@ module.exports = {
   },
 
   async current(req, res){
+    console.log(req.session)
     trackInfo = await track.getCurrent(req.session.spotifyToken);
     console.log(trackInfo)
     req.session.trackInfo = trackInfo;

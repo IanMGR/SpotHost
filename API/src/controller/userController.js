@@ -18,7 +18,9 @@ module.exports = {
       req.session.spotifyToken = spotifyReponse.access_token;
       spotifyId = await user.getSpotifyId(spotifyReponse.access_token);
       req.session.spotifyId = spotifyId;
-      return res.json({result:'SUCCESS'});
+      console.log(req.session)
+      //req.session.save()
+      return res.redirect('http://localhost:3000/callback');
       //return res.json({token: spotifyReponse.access_token});
     }
   },
@@ -30,9 +32,9 @@ module.exports = {
     const params = req.body;
     const userInfo = await user.login(params);
     if (userInfo){
-      
+      console.log(userInfo);
       req.session.userId = userInfo.id;
-      test = user.spotauthorize(res);
+      //test = user.spotauthorize(res);
       console.log("user " + req.session.userId + " logged in")
     }
   },

@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session")
 const globalvar = require("./src/global")
 const routes = require("./routes");
+const cors = require("cors")
 
 const app = express();
 
@@ -17,17 +18,22 @@ app.use(
       saveUninitialized: true,
       cookie: {
           maxAge: 1 * (24 * 60 * 60 * 1000), // days * (hours * minutes * seconds * 1000) => session is stored 1 day
+          httpOnly: false
       }
   })
 );
 
+app.use(cors({
+  origin: '*'
+}));
+
 app.use(routes);
 
-app.listen(3000, function(err) {
+app.listen(8000, function(err) {
   if(err) {
     console.log(err);
   }
   else {
-    console.log("Server Started At Port 3000")
+    console.log("Server Started At Port 8000")
   }
 });

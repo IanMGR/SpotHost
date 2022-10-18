@@ -1,67 +1,77 @@
-class Track {
-  constructor(track) {
-    this.id = track.id;
-    this.name = track.name;
-    this.album = track.album;
-    this.artist = track.artist;
-    this.uri = track.uri;
-    this.timestamp = track.timestamp;
+class Room {
+  constructor(room) {
+    this.id = room.id;
+    this.dscr = room.dscr;
+    this.code = room.code;
+    this.hostId = room.hostId;
   }
 }
 
 const request = require('request');
 
-exports.getCurrent = function (token) {
+exports.getHostRooms = function (user_id) {
   return new Promise(resolve => {
-
-    request.get({
-      url: 'https://api.spotify.com/v1/me/player/currently-playing?market=us',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      },
-      json: true
-    }, 
-    function (err, res, body) {
-      if (!err && res.statusCode === 200) {
-        artists = []
-        for (const artist of body.item.artists){
-          artists.push(artist.name);
-        }
-        resolve({
-          name: body.item.name,
-          album: body.item.album.name,
-          artists: artists,
-          uri: body.item.uri,
-          progress_ms: body.progress_ms
-        })
-      }
-      else {
-        resolve({'error': err})
-      }
-    });
-  });
-},
-
-exports.setTrack = function (token, trackInfo) {
-  return new Promise(resolve => {
-    request.put('https://api.spotify.com/v1/me/player/play', { 
-      body: {
-        'uris': [trackInfo.uri],
-        'position_ms': trackInfo.progress_ms
-      },
-      auth: {
-        'bearer': token
-      },
-      json: true
-    }, 
-    function (err, res, body) {
+    const rooms = [];
+    let sql = "SELECT * FROM room where host_id = " + user_id;
+    let i = 0;
+    global.conn.query(sql, function (err, result) {
       if (err) {
-        resolve({'error': err})
+        console.log(err);
       }
-      else {
-        resolve({result:'SUCCESS'})
-      }
+      result.forEach(element => {
+        rooms[i] = new Room(result[i]);
+        i++;
+      });
+      resolve(rooms);
     });
   });
-}
+};
+
+exports.create = function (description,user) {
+  return new Promise(resolve => {
+    let sql = "INSERT INTO room VALUES (null,'" + description + "',null," + user.id + ")" ;
+    global.conn.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+      resolve(result);
+    });
+  });
+};
+
+exports.remove = function (id, user_id) {
+  return new Promise(resolve => {
+    let sql = "DELETE FROM room WHERE id = " + id + "AND host_id = " + user_id;
+    global.conn.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+      resolve(result);
+    });
+  });
+};
+
+exports.update = function (room,user_id) {
+  return new Promise(resolve => {
+    let sql = "UPDATE room SET dscr = '" + room.dscr + "' WHERE id = " + room.id + "AND host_id = " + user_id;
+    global.conn.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+      resolve(result);
+    });
+  });
+};
+
+exports.validation = function (code) {
+  return new Promise (resolve => {
+    let sql = "SELECT id FROM room WHERE code = " + code;
+    global.conn.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+        console.log('Código inválido!');
+      }
+      resolve(result[0]);
+    })
+  });
+};
