@@ -27,9 +27,9 @@ exports.getHostRooms = function (user_id) {
   });
 };
 
-exports.create = function (description,user) {
+exports.create = function (description,user_id) {
   return new Promise(resolve => {
-    let sql = "INSERT INTO room VALUES (null,'" + description + "',null," + user.id + ")" ;
+    let sql = "INSERT INTO room VALUES (null,'" + description + "', null, null," + user_id + ")" ;
     global.conn.query(sql, function (err, result) {
       if (err) {
         console.log(err);
@@ -53,7 +53,22 @@ exports.remove = function (id, user_id) {
 
 exports.update = function (room,user_id) {
   return new Promise(resolve => {
-    let sql = "UPDATE room SET dscr = '" + room.dscr + "' WHERE id = " + room.id + "AND host_id = " + user_id;
+
+    let sql = "UPDATE room SET dscr = '" + room.dscr + " WHERE host_id = " + user_id;
+    global.conn.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+      resolve(result);
+    });
+  });
+};
+
+exports.updateTrack = function (trackInfo,user_id) {
+  return new Promise(resolve => {
+    const track_info = trackInfo.replace("'","\\'");
+
+    let sql = `UPDATE room SET track_info = '${track_info}' WHERE host_id = ${user_id}`;
     global.conn.query(sql, function (err, result) {
       if (err) {
         console.log(err);

@@ -3,23 +3,34 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    name: 'room-index',
-    component:() => import('./views/room/index.vue')
+    name: 'index',
+    component:() => import('./views/callback.vue')
   },
   {
-    path: '/callback',
-    name: 'room-callback',
-    component:() => import('./views/room/callback.vue')
+    path: '/login',
+    name: 'user-login',
+    component:() => import('./views/user/login.vue'),
+  },
+  {
+    path: '/host',
+    name: 'room-host',
+    component:() => import('./views/room/host.vue')
+  },
+  {
+    path: '/room/:code', 
+    name: 'room-client',
+    component:() => import('./views/room/client.vue'),
+    props: true
   },
   {
     path: '/add',
-    name: 'room-add',
-    component:() => import('./views/room/add.vue')
+    name: 'user-add',
+    component:() => import('./views/user/add.vue')
   },
   {
     path: '/edit/:id',
-    name: 'room-edit',
-    component:() => import('./views/room/edit.vue'),
+    name: 'user-edit',
+    component:() => import('./views/user/edit.vue'),
     props: true
   }
 ]

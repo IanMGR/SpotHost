@@ -1,36 +1,38 @@
 const express = require("express");
-const session = require("express-session")
-const globalvar = require("./src/global")
-const routes = require("./routes");
+const session = require("express-session");
+const bodyParser = require('body-parser')
 const cors = require("cors")
+
+const globalvar = require("./src/global");
+const routes = require("./routes");
+
+
+require('dotenv-safe').config();
+
 
 const app = express();
 
+app.use(cors({
+  origin: ["http://192.168.1.26:3000"],
+  credentials : true
+}));
+
 global.connection = require("./src/database");
 
-app.use(express.json());
+app.use(bodyParser.json());
 
 app.use(
-  session({
-      name: 'SESSION_ID',      // cookie name stored in the web browser
+  session({ 
       secret: global.session_secret,     // helps to protect session
-      resave: true,
+      resave: false,
       saveUninitialized: true,
-      cookie: {
-          maxAge: 1 * (24 * 60 * 60 * 1000), // days * (hours * minutes * seconds * 1000) => session is stored 1 day
-          httpOnly: false
-      }
   })
 );
-
-app.use(cors({
-  origin: '*'
-}));
 
 app.use(routes);
 
 app.listen(8000, function(err) {
-  if(err) {
+  if(err) { 
     console.log(err);
   }
   else {

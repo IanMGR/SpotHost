@@ -8,43 +8,47 @@ module.exports = {
   async callback(req, res){
     code = req.query.code || null;
     state = req.query.state || null;
+
     if (state === null){
       res.redirect('/#' + new URLSearchParams({
         error: 'state_mismatch'
       }))
-    }
-    else {
+    } else {
       spotifyReponse = await user.getspottoken(code);
-      req.session.spotifyToken = spotifyReponse.access_token;
       spotifyId = await user.getSpotifyId(spotifyReponse.access_token);
-      req.session.spotifyId = spotifyId;
-      console.log(req.session)
-      //req.session.save()
-      return res.redirect('http://localhost:3000/callback');
-      //return res.json({token: spotifyReponse.access_token});
+
+      req.session.spotify_token = spotifyReponse.access_token;
+      console.log(spotifyId)
+      req.session.spotify_id = spotifyId;
+
+      return res.redirect(global.webUrl);
     }
   },
 
   async login(req, res){
-    if (req.session.userId){
-      return res.json({result: 'ERROR', message: 'User already logged in.'});
-    }
     const params = req.body;
-    const userInfo = await user.login(params);
+    const userInfo = await user.validate(params);
     if (userInfo){
-      console.log(userInfo);
-      req.session.userId = userInfo.id;
-      //test = user.spotauthorize(res);
-      console.log("user " + req.session.userId + " logged in")
+      req.session.user_id = userInfo.id
+      req.session.user_name = userInfo.name
+      req.session.track_info = '{"name": "none"}'
+      console.log("user " + req.session.user_name + " logged in")
+      return res.json({auth: 'Success!'})
     }
   },
 
-  async logout(req, res){
-    if (req.session.userId){
-      delete req.session.userId
-      return res.json({result:'SUCCESS'})
-    }
+  async getUser(req, res){
+    console.log(req.session)
+    req.session.user_id ? res.status(200).send({loggedIn: true}) : res.status(200).send({loggedIn: false});
+  },
 
-    return res.json({result: 'ERROR', message: 'User is not logged in.'});
+  async logout(req, res){
+    req.session.destroy((err) => {
+      if (err) {
+        res.status(500).send('Could not log out')
+      } else {
+        res.status(200).send({});
+      }
+    })
   }
 }

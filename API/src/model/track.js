@@ -43,6 +43,18 @@ exports.getCurrent = function (token) {
   });
 },
 
+exports.getRoomTrack = function (code) {
+  return new Promise(resolve => {
+    let sql = "SELECT track_info from room where code = " + code;
+    global.conn.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+      resolve(result[0]);
+    })
+  });
+}
+
 exports.setTrack = function (token, trackInfo) {
   return new Promise(resolve => {
     request.put('https://api.spotify.com/v1/me/player/play', { 

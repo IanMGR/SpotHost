@@ -11,9 +11,9 @@ class User {
 const request = require('request');
 const randomstring = require("randomstring");
 
-exports.login = function (user) {
+exports.validate = function (params) {
   return new Promise(resolve => {
-    let sql = "SELECT id from test where id = 1";// + user.pswd;
+    let sql = "SELECT id, name from user where email = '" + params.email + "' AND pwd = '" + params.password + "'";
     global.conn.query(sql, function (err, result) {
       if (err) {
         console.log(err);

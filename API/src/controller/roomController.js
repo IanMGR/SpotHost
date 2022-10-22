@@ -6,28 +6,28 @@ module.exports = {
   },
 
   async all(req, res){
-    const user_id = req.session.userId;
+    const user_id = req.session.user_id;
     const response = await room.getHostRooms(user_id);
     return res.send(response);
   },
 
   async add(req, res){
     const info = req.body;
-    const user_id = req.session.userId;
+    const user_id = req.session.user_id;
     const response = await room.create(info.dscr,user_id);
     return res.send(response);
   },
   
   async delete(req, res){
     const { id } = req.params;
-    const user_id = req.session.userId;
+    const user_id = req.session.user_id;
     const response = await room.remove(id,user_id);
     return res.send(response);
   },
 
   async update(req, res){
     const info = req.body;
-    const user_id = req.session.userId;
+    const user_id = req.session.user_id;
     const response = await room.update(info,user_id);
     return res.send(response);
   },
