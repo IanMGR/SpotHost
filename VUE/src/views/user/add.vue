@@ -1,36 +1,23 @@
 <template>
 <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                  <img :src="'../../src/assets/logo.png'"  width="300">
-                </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                  <a class="nav-link active" aria-current="page" href="#"><span @click="voltar()">Voltar</span></a>
-                <router-link to="/add"> <a class="nav-link">Agendar alimentação</a></router-link>
-                </div>
-              </div>
-            </div>
-        </nav>
   <div class="container">
 
       <form @submit.prevent="submitForm">
         
           <div class="form-group">
-             <label for="exampleInputEmail1" class="mb-1">Horário</label><br/>
-            <input v-model="hora" type="time" id="appt" name="appt" min="00:00" max="24:00" required>
+             <label for="exampleInputEmail1" class="mb-1">Name:</label><br/>
+            <input v-model="name" type="text" id="name" name="name" placeholder="Insert name" required>
           </div>
-          
           <div class="form-group">
-            <label for="exampleInputEmail1">Dia semana:</label>
-            <input v-model="diaSemana" class="mt-1 mb-2 form-control form-control-sm" type="text" placeholder="Dia da semana">
+            <label for="exampleInputEmail1">E-mail:</label>
+            <input v-model="email" class="mt-1 mb-2 form-control form-control-sm" type="text" placeholder="emailexample@wave.com">
           </div>
-          <button class="btn btn-info btn-sm m-2" type="submit">Salvar</button>
-          <button class="btn btn-info btn-sm" @click="voltar()">Voltar</button>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Password:</label>
+            <input v-model="pwd" class="mt-1 mb-2 form-control form-control-sm" type="password">
+          </div>
+          <button class="btn btn-info btn-sm m-2" type="submit">Submit</button>
+          <button class="btn btn-info btn-sm" @click="back()">Back</button>
       </form>
   </div>
 </div>
@@ -43,21 +30,22 @@ import { api } from "../../const/api";
 
 const router = useRouter()
 
-const hora = ref('')
-const diaSemana = ref('')
-const dispensadoDia = ref('')
+const name = ref('')
+const email = ref('')
+const pwd = ref('')
 
 function submitForm() {
-  api.post('horario/add', {
-    hora: hora.value,
-    diaSemana: diaSemana.value,
+  api.post('user/add', {
+    name: name.value,
+    email: email.value,
+    pwd: pwd.value
   })
   .then(() => {
     router.push('/')
   })
 }
 
-function voltar() {
+function back() {
     router.push('/')
   }
 </script>

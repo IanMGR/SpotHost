@@ -42,6 +42,12 @@ module.exports = {
     req.session.user_id ? res.status(200).send({loggedIn: true}) : res.status(200).send({loggedIn: false});
   },
 
+  async add(req, res){
+    const info = req.body;
+    const response = await user.create(info);
+    return res.send(response);
+  },
+
   async logout(req, res){
     req.session.destroy((err) => {
       if (err) {

@@ -91,3 +91,15 @@ exports.spotauthorize = function (res) {
       });
     });
   }
+
+  exports.create = function (userInfo) {
+    return new Promise(resolve => {
+      let sql = `INSERT INTO user VALUES (null, "${userInfo.name}", "${userInfo.email}", "${userInfo.pwd}")` ;
+      global.conn.query(sql, function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+        resolve(result);
+      });
+    });
+  };

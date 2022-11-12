@@ -1,12 +1,20 @@
 <template>
-  <div>
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col"></div>
+      <div class="col text-center">
         <h2>Login</h2>
         <form v-on:submit="login">
-            <input type="text" name="email"/><br>
-            <input type="password" name="password"/><br>
+            <label for="loginEmail" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="loginEmail" name="email"/><br>
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="loginPassword" name="password"/><br>
             <input type="submit" value="Login"/>
         </form>
+      </div>
+      <div class="col"></div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -50,7 +58,8 @@ function loginSpotify(){
       response_type: 'code',
       client_id: client_id,
       scope: 'user-read-currently-playing user-modify-playback-state',
-      redirect_uri: 'http://192.168.1.26:8000/api/user/callback',
+      //redirect_uri: 'http://192.168.1.26:8000/api/user/callback',
+      redirect_uri: 'http://localhost:8000/api/user/callback',
       state: localStorage.jwt
     }).toString();
 }

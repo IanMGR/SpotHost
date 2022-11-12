@@ -22,6 +22,7 @@ const validatePayloadMiddleware = (req, res, next) => {
 };
 
 routes.get('/api/user', authMiddleware, userController.getUser);
+routes.post('/api/user/add',validatePayloadMiddleware, userController.add);
 routes.post('/api/user/login',validatePayloadMiddleware, userController.login);
 routes.get('/api/user/login', userController.getUser);
 routes.get('/api/user/logout',userController.logout);

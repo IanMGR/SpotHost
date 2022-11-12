@@ -41,7 +41,7 @@ exports.create = function (description,user_id) {
 
 exports.remove = function (id, user_id) {
   return new Promise(resolve => {
-    let sql = "DELETE FROM room WHERE id = " + id + "AND host_id = " + user_id;
+    let sql = "DELETE FROM room WHERE id = " + id + " AND host_id = " + user_id;
     global.conn.query(sql, function (err, result) {
       if (err) {
         console.log(err);

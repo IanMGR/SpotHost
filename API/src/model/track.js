@@ -32,6 +32,7 @@ exports.getCurrent = function (token) {
           name: body.item.name,
           album: body.item.album.name,
           artists: artists,
+          img: body.item.album.images[0],
           uri: body.item.uri,
           progress_ms: body.progress_ms
         })

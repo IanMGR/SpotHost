@@ -26,12 +26,6 @@ const routes = [
     path: '/add',
     name: 'user-add',
     component:() => import('./views/user/add.vue')
-  },
-  {
-    path: '/edit/:id',
-    name: 'user-edit',
-    component:() => import('./views/user/edit.vue'),
-    props: true
   }
 ]
 

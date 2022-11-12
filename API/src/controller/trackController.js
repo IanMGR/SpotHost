@@ -33,7 +33,7 @@ module.exports = {
       req.session.track_info = JSON.stringify(trackInfo);
     }
     else{
-      response = 'same music'
+      response = trackInfo
       console.log(response)
     }
     return res.json(response)
