@@ -1,6 +1,6 @@
 <template>
   <div >
-      <h2>Hosting: <button type="button" class="m-2 btn btn-info btn-sm"  @click="leaveHost()"> Stop Hosting</button></h2>
+      <h2>Hosting: <button type="button" class="m-2 btn btn-primary btn-sm"  @click="leaveHost()"> Stop Hosting</button></h2>
       <img :src="data.img.url"/>
       <h1>{{data.name}}</h1>
       <h4>{{data.artists.join(',')}}</h4>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Listening to: <button type="button" class="m-2 btn btn-info btn-sm"  @click="leaveRoom()"> Leave Room</button></h2>
+    <h2>Listening to: <button type="button" class="m-2 btn btn-primary btn-sm"  @click="leaveRoom()"> Leave Room</button></h2>
       <img :src="data.img.url"/>
       <h1>{{data.name}}</h1>
       <h4>{{data.artists.join(',')}}</h4>

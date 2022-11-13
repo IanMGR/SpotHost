@@ -5,9 +5,9 @@
         <div class="content1 col-6">
           <img src="..\assets\imagem.jpg" alt="test" class="img-fluid">
         </div>
-        <div class="content2 col">
+        <div class="content2 col" style="margin-top:auto;margin-bottom:auto;text-align: center">
           <h1>Lorem Ipsum</h1>
-          <p>dolor sit amet, consectetur adipiscing elit. Mauris pharetra convallis ultricies. Donec in ante a risus vehicula tristique eu eget leo. Phasellus quis volutpat risus. Fusce ut pulvinar nisl. Nullam maximus nec lacus egestas pellentesque. Quisque interdum vestibulum elit, eget placerat tortor. Sed euismod dignissim nisl at tristique. Etiam dapibus tristique libero, sed euismod justo semper eget.</p>
+          <p style="text-align:justify">dolor sit amet, consectetur adipiscing elit. Mauris pharetra convallis ultricies. Donec in ante a risus vehicula tristique eu eget leo. Phasellus quis volutpat risus. Fusce ut pulvinar nisl. Nullam maximus nec lacus egestas pellentesque. Quisque interdum vestibulum elit, eget placerat tortor. Sed euismod dignissim nisl at tristique. Etiam dapibus tristique libero, sed euismod justo semper eget.</p>
           <button type="button" class="m-2 btn btn-primary" @click="router.push('/login')"> Log in</button>
         </div>
       </div>
@@ -15,7 +15,7 @@
     <div id="logged" class="container-fluid">
       <div class="row">
         <div class="content1 col-8">
-          <h1>My Rooms: <button type="button" class="m-2 btn btn-info" @click="router.push('/host')"> Host</button></h1>
+          <h1>My Rooms: <button type="button" class="m-2 btn btn-primary" @click="router.push('/host')"> Host</button></h1>
           <table class="table table-bordered">
             <tbody>
             <tr v-for="(data, idx) in datas" :key="idx">
@@ -26,11 +26,11 @@
             </tr>
           </tbody>
           </table>
-          <button type="button" class="m-2 btn btn-info" data-bs-toggle="modal"  data-bs-target="#modalRoomCreation" > Add Room</button>
+          <button type="button" class="m-2 btn btn-primary" data-bs-toggle="modal"  data-bs-target="#modalRoomCreation" > Add Room</button>
         </div>
-        <div class="content2 p-2 m-3 col align-content-center" style="border: 1px solid black">
-          <input type="text" id="room_code" name="room_code" placeholder="Enter room code here..."/>
-          <button type="button" class="m-2 btn btn-info" @click="goToRoom()"> Enter Room</button>
+        <div class="content2 p-2 m-3 col align-content-center" style="border: 1px solid lightgrey;margin-top:auto;margin-bottom:auto;text-align: center">
+          <input type="text" class="form-control" id="room_code" name="room_code" placeholder="Enter room code here..."/><br>
+          <button type="button" class=" form-control btn btn-primary" @click="goToRoom()"> Enter Room</button>
         </div>
       </div>
       <!--MODAL-->
@@ -44,7 +44,7 @@
             <div class="modal-body">
               <p>Room description</p>
               <input type="text" id="room_dscr" name="room_dscr"/>
-              <button type="button" class="m-2 btn btn-info" @click="addRoom()"> Submit</button>
+              <button type="button" class="m-2 btn btn-primary" @click="addRoom()"> Submit</button>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>

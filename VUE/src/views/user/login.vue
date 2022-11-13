@@ -2,14 +2,12 @@
   <div class="container-fluid">
     <div class="row align-items-center">
       <div class="col"></div>
-      <div class="col text-center">
-        <h2>Login</h2>
+      <div class="col p-4 text-center" style="border: 1px solid lightgrey">
+        <h2>Log In</h2><br>
         <form v-on:submit="login">
-            <label for="loginEmail" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="loginEmail" name="email"/><br>
-            <label for="loginPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="loginPassword" name="password"/><br>
-            <input type="submit" value="Login"/>
+            <input type="email" class="form-control" id="loginEmail" name="email" placeholder="example@email.com"/><br>
+            <input type="password" class="form-control" id="loginPassword" name="password" placeholder="********"/><br>
+            <input type="submit" class="btn btn-primary" value="Log in"/>
         </form>
       </div>
       <div class="col"></div>

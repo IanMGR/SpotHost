@@ -1,24 +1,23 @@
 <template>
 <div>
-  <div class="container">
-
-      <form @submit.prevent="submitForm">
-        
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col"></div>
+      <div class="col p-4 text-center" style="border: 1px solid lightgrey">
+        <h2>Create Account</h2><br>
+        <form @submit.prevent="submitForm">
           <div class="form-group">
-             <label for="exampleInputEmail1" class="mb-1">Name:</label><br/>
-            <input v-model="name" type="text" id="name" name="name" placeholder="Insert name" required>
+            <input v-model="name" type="text" id="name" class="form-control" name="name" placeholder="Insert name" required><br>
+            <input v-model="email" class="form-control" type="text" placeholder="emailexample@wave.com"><br>
+            <input v-model="pwd" class="form-control" type="password" placeholder="********"><br>
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">E-mail:</label>
-            <input v-model="email" class="mt-1 mb-2 form-control form-control-sm" type="text" placeholder="emailexample@wave.com">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Password:</label>
-            <input v-model="pwd" class="mt-1 mb-2 form-control form-control-sm" type="password">
-          </div>
-          <button class="btn btn-info btn-sm m-2" type="submit">Submit</button>
-          <button class="btn btn-info btn-sm" @click="back()">Back</button>
-      </form>
+          <button class="btn btn-secondary m-2" @click="back()">Back</button>
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="col"></div>
+      
+    </div>
   </div>
 </div>
 </template>
