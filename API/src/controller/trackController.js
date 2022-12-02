@@ -18,7 +18,7 @@ module.exports = {
 
   async playTrack(req, res){
     const { room_code } = req.params;
-    roomTrack = await track.getRoomTrack(room_code)
+    roomTrack = await track.getRoomTrack(room_code, res)
 
     console.log(roomTrack.track_info)
     console.log(req.session)

@@ -6,8 +6,9 @@
           <img src="..\assets\imagem.jpg" alt="test" class="img-fluid">
         </div>
         <div class="content2 col" style="margin-top:auto;margin-bottom:auto;text-align: center">
-          <h1>Lorem Ipsum</h1>
-          <p style="text-align:justify">dolor sit amet, consectetur adipiscing elit. Mauris pharetra convallis ultricies. Donec in ante a risus vehicula tristique eu eget leo. Phasellus quis volutpat risus. Fusce ut pulvinar nisl. Nullam maximus nec lacus egestas pellentesque. Quisque interdum vestibulum elit, eget placerat tortor. Sed euismod dignissim nisl at tristique. Etiam dapibus tristique libero, sed euismod justo semper eget.</p>
+          <h1>Ride the Wave!</h1>
+          <p style="text-align:center">With Wave you can connect to whoever you want to, and enjoy music with them! You can also be the one who shares your own vibes with everybody else.</p>
+          <p style="text-align:center">Are you a streamer? connect with you audience here and never fear DMCA strikes again!</p>
           <button type="button" class="m-2 btn btn-primary" @click="router.push('/login')"> Log in</button>
         </div>
       </div>
@@ -42,9 +43,11 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+              <form v-on:submit="addRoom">
               <p>Room description</p>
-              <input type="text" id="room_dscr" name="room_dscr"/>
-              <button type="button" class="m-2 btn btn-primary" @click="addRoom()"> Submit</button>
+              <input type="text" id="room_dscr" name="room_dscr" required/>
+              <button type="submit" class="m-2 btn btn-primary"> Submit</button>
+              </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -110,9 +113,11 @@ function goToRoom() {
   api.get(`room/${room_code}/validate`)
   .then(resp => {
     let res = resp.data;
-    if (res){
+    console.log(res)
+    if (res.id){
       router.push(`/room/${room_code}`)
     } else {
+      alert('Invalid room code!')
       console.log('Invalid room code')
     }
     

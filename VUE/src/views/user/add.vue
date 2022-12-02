@@ -8,8 +8,8 @@
         <form @submit.prevent="submitForm">
           <div class="form-group">
             <input v-model="name" type="text" id="name" class="form-control" name="name" placeholder="Insert name" required><br>
-            <input v-model="email" class="form-control" type="text" placeholder="emailexample@wave.com"><br>
-            <input v-model="pwd" class="form-control" type="password" placeholder="********"><br>
+            <input v-model="email" class="form-control" type="email" placeholder="emailexample@wave.com" required><br>
+            <input v-model="pwd" class="form-control" type="password" placeholder="********" required><br>
           </div>
           <button class="btn btn-secondary m-2" @click="back()">Back</button>
           <button class="btn btn-primary" type="submit">Submit</button>

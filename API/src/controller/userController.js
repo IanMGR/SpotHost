@@ -35,6 +35,9 @@ module.exports = {
       console.log("user " + req.session.user_name + " logged in")
       return res.json({auth: 'Success!'})
     }
+    else{
+      return res.json({auth: 'Error!'})
+    }
   },
 
   async getUser(req, res){

@@ -44,14 +44,15 @@ exports.getCurrent = function (token) {
   });
 },
 
-exports.getRoomTrack = function (code) {
+exports.getRoomTrack = function (code, res) {
   return new Promise(resolve => {
     let sql = "SELECT track_info from room where code = " + code;
     global.conn.query(sql, function (err, result) {
       if (err) {
         console.log(err);
+        resolve(err)
       }
-      resolve(result[0]);
+      else{resolve(result[0]);}
     })
   });
 }

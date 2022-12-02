@@ -85,8 +85,11 @@ exports.validation = function (code) {
       if (err) {
         console.log(err);
         console.log('Código inválido!');
+        resolve(err)
       }
-      resolve(result[0]);
+      else{
+        resolve(result[0]);
+      }
     })
   });
 };

@@ -5,8 +5,8 @@
       <div class="col p-4 text-center" style="border: 1px solid lightgrey">
         <h2>Log In</h2><br>
         <form v-on:submit="login">
-            <input type="email" class="form-control" id="loginEmail" name="email" placeholder="example@email.com"/><br>
-            <input type="password" class="form-control" id="loginPassword" name="password" placeholder="********"/><br>
+            <input type="email" class="form-control" id="loginEmail" name="email" placeholder="example@email.com" required/><br>
+            <input type="password" class="form-control" id="loginPassword" name="password" placeholder="********" required/><br>
             <input type="submit" class="btn btn-primary" value="Log in"/>
         </form>
       </div>
@@ -37,10 +37,17 @@ export default {
         }
         api.post("/user/login", data)
           .then((response) => {
-            console.log("Logged in")
-            loginSpotify();
+            if (response.data.auth && response.data.auth === 'Success!') {
+              console.log("Logged in")
+              loginSpotify();
+            }
+            else {
+              alert('Invalid E-mail or Password! ')
+              console.log(response.data)
+            }
           })
           .catch((errors) => {
+            alert('teste')
             console.log(errors)
             console.log("Cannot log in")
           })
